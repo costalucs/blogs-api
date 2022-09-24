@@ -1,10 +1,20 @@
 const UserSchema = (sequelize, DataTypes) => {
   const UserTable = sequelize.define('User', {
-    id: DataTypes.INTEGER,
-    display_name: DataTypes.STRING,
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    display_name: {
+      type: DataTypes.STRING,
+    },
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     image: DataTypes.STRING,
+  },{
+    timestamps: false,
+    tableName: 'users',
   })
 
   UserTable.associate = (models) => {
