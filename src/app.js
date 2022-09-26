@@ -14,6 +14,7 @@ app.use(express.json());
 app.post('/login', fieldVerificationLogin, LoginController.Login);
 
 // rota user
+app.get('/user', UserController.getAllUsers);
 app.post('/user', validateEmail, validateUserFields, UserController.postUser);
 // ...
 

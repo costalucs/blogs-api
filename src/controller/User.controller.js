@@ -18,4 +18,15 @@ const postUser = async (req, res) => {
   }
 };
 
-module.exports = { postUser };
+const getAllUsers = async (req, res) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+ return res.status(401).json({
+    message: 'Token not found',
+  }); 
+}
+  const users = await UserService.findAll();
+  return res.status(200).json(users);
+};
+
+module.exports = { postUser, getAllUsers };
