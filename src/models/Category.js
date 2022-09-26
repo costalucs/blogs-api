@@ -7,6 +7,9 @@ const CategorySchema = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     name: DataTypes.STRING,
+  }, {
+    timestamps: false,
+    tableName: 'categories',
   })
   return CategoryTable
 }
