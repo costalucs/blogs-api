@@ -27,6 +27,7 @@ app.get('/categories', validateJWT, categoriesController.getAllCategories);
 
 // rota posts
 app.get('/post', validateJWT, PostController.getAllPosts);
+app.get('/post/:id', validateJWT, PostController.getOnePost);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
