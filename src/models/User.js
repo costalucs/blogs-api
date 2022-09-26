@@ -6,7 +6,7 @@ const UserSchema = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    display_name: {
+    displayName: {
       type: DataTypes.STRING,
     },
     email: DataTypes.STRING,
@@ -15,6 +15,7 @@ const UserSchema = (sequelize, DataTypes) => {
   },{
     timestamps: false,
     tableName: 'users',
+    underscored: true,
   })
 
   UserTable.associate = (models) => {

@@ -1,6 +1,7 @@
 const express = require('express');
 const LoginController = require('./controller/Login.controller');
 const UserController = require('./controller/User.controller');
+const PostController = require('./controller/Post.controller');
 const categoriesController = require('./controller/Categories.controller');
 const fieldVerificationLogin = require('./middlewares/fieldVerificationLogin');
 const { validateUserFields, validateEmail } = require('./middlewares/User.middleware');
@@ -23,6 +24,9 @@ app.post('/user', validateEmail, validateUserFields, UserController.postUser);
 
 // rota categories
 app.get('/categories', validateJWT, categoriesController.getAllCategories);
+
+// rota posts
+app.get('/post', validateJWT, PostController.getAllPosts);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
