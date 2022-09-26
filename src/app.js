@@ -24,6 +24,7 @@ app.post('/user', validateEmail, validateUserFields, UserController.postUser);
 
 // rota categories
 app.get('/categories', validateJWT, categoriesController.getAllCategories);
+app.post('/categories', validateJWT, categoriesController.postCategory);
 
 // rota posts
 app.get('/post', validateJWT, PostController.getAllPosts);
