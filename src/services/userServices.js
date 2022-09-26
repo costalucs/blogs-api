@@ -9,7 +9,8 @@ const findUser = async (email) => {
 };
 
 const findById = async (id) => {
-  const user = await User.findOne({ where: { id } });
+  const user = await User.findOne({ where: { id },
+  attributes: ['id', ['display_name', 'displayName'], 'email', 'image'] });
   return user;
 };
 

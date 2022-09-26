@@ -16,6 +16,7 @@ app.post('/login', fieldVerificationLogin, LoginController.Login);
 
 // rota user
 app.get('/user', validateJWT, UserController.getAllUsers);
+app.get('/user/:id', validateJWT, UserController.getUserById);
 app.post('/user', validateEmail, validateUserFields, UserController.postUser);
 // ...
 
