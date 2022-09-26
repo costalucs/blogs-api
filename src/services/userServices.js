@@ -8,6 +8,11 @@ const findUser = async (email) => {
   return { type: false };
 };
 
+const findById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  return user;
+};
+
 const findAll = async () => {
   const allUsers = await User
   .findAll({ attributes: ['id', ['display_name', 'displayName'], 'email', 'image'] });
@@ -19,4 +24,4 @@ const createUser = async (displayName, email, password, image) => {
   return newUser;
 };
 
-module.exports = { findUser, createUser, findAll };
+module.exports = { findUser, createUser, findAll, findById };
