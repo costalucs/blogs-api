@@ -9,8 +9,8 @@ const getAllCategories = async (req, res) => {
 const postCategory = async (req, res) => {
   const category = req.body;
   if (!category.name) {
- return res.status(400).json({ message: '"name" is required' }); 
-}
+    return res.status(400).json({ message: '"name" is required' });
+  }
   const newCategory = await CategoriesServices.insertCategory(category);
   return res.status(201).json(newCategory);
 };

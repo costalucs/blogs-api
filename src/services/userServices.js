@@ -3,20 +3,22 @@ const { User } = require('../models');
 const findUser = async (email) => {
   const user = await User.findOne({ where: { email } });
   if (user) {
-    return { type: true, message: 'User already registered' }; 
-}
+    return { type: true, message: 'User already registered', user };
+  }
   return { type: false };
 };
 
 const findById = async (id) => {
-  const user = await User.findOne({ where: { id },
-  attributes: ['id', ['display_name', 'displayName'], 'email', 'image'] });
+  const user = await User.findOne({
+    where: { id },
+    attributes: ['id', ['display_name', 'displayName'], 'email', 'image'],
+  });
   return user;
 };
 
 const findAll = async () => {
   const allUsers = await User
-  .findAll({ attributes: ['id', ['display_name', 'displayName'], 'email', 'image'] });
+    .findAll({ attributes: ['id', ['display_name', 'displayName'], 'email', 'image'] });
   return allUsers;
 };
 
