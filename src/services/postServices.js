@@ -17,7 +17,6 @@ const findAllPosts = async () => {
       },
     ],
   });
-  console.log(allPosts);
   return allPosts;
 };
 
@@ -42,4 +41,10 @@ const findOnePost = async (id) => {
   return post;
 };
 
-module.exports = { findAllPosts, findOnePost };
+const createPost = async ({ title, content, id }) => {
+  const post = await BlogPost.create({ title, content, userId: id });
+  console.log(post);
+  return post.dataValues;
+};
+
+module.exports = { findAllPosts, findOnePost, createPost };
