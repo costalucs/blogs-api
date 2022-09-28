@@ -27,4 +27,9 @@ const createUser = async (displayName, email, password, image) => {
   return newUser;
 };
 
-module.exports = { findUser, createUser, findAll, findById };
+const destroyUser = async (id) => {
+  const user = await User.destroy({ where: { id } });
+  return user;
+};
+
+module.exports = { findUser, createUser, findAll, findById, destroyUser };
