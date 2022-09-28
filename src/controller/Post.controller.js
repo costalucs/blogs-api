@@ -67,4 +67,11 @@ const deletePostById = async (req, res) => {
   return res.status(204).json();
 };
 
-module.exports = { getAllPosts, getOnePost, insertPost, deletePostById };
+const searchPost = async (req, res) => {
+  const { q } = req.query;
+  console.log(q);
+  const post = await PostServices.findAllPostsByQuery(q);
+  return res.status(200).json(post);
+};
+
+module.exports = { getAllPosts, getOnePost, insertPost, deletePostById, searchPost };

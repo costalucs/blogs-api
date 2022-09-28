@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, User, Category } = require('../models');
 
 const findAllPosts = async () => {
@@ -14,6 +15,27 @@ const findAllPosts = async () => {
         model: Category,
         as: 'categories',
         through: { attributes: [] },
+      },
+    ],
+  });
+  return allPosts;
+};
+
+// ref: https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#logical-combinations-with-operators
+const findAllPostsByQuery = async (query) => {
+  const allPosts = await BlogPost.findAll({
+    where: {
+      [Op.or]: [{ title: { [Op.like]: `%${query}%` } }, {
+        content: { [Op.like]: `%${query}%` },
+      },
+      ],
+    },
+    include: [
+      {
+        model: User, as: 'user', attributes: { exclude: ['password'] },
+      },
+      {
+        model: Category, as: 'categories', through: { attributes: [] },
       },
     ],
   });
@@ -51,4 +73,4 @@ const destroyPost = async (id) => {
   const result = BlogPost.destroy({ where: { id } });
   return result;
 };
-module.exports = { findAllPosts, findOnePost, createPost, destroyPost };
+module.exports = { findAllPosts, findOnePost, createPost, destroyPost, findAllPostsByQuery };

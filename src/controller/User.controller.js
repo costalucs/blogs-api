@@ -39,7 +39,7 @@ const deleteUser = async (req, res) => {
   const { user: { dataValues: { id } } } = await UserServices.findUser(email);
 
   await UserServices.destroyUser(id);
-  
+
   return res.status(204).json();
 };
 
