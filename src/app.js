@@ -31,6 +31,7 @@ app.post('/categories', validateJWT, categoriesController.postCategory);
 app.get('/post/search', validateJWT, PostController.searchPost);
 app.get('/post', validateJWT, PostController.getAllPosts);
 app.get('/post/:id', validateJWT, PostController.getOnePost);
+app.put('/post/:id', validateJWT, PostController.editPost);
 app.post('/post/', validateJWT, PostController.insertPost);
 app.delete('/post/:id', validateJWT, PostController.deletePostById);
 
