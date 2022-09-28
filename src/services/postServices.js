@@ -47,4 +47,8 @@ const createPost = async ({ title, content, id }) => {
   return post.dataValues;
 };
 
-module.exports = { findAllPosts, findOnePost, createPost };
+const destroyPost = async (id) => {
+  const result = BlogPost.destroy({ where: { id } });
+  return result;
+};
+module.exports = { findAllPosts, findOnePost, createPost, destroyPost };

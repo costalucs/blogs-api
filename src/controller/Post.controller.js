@@ -48,4 +48,23 @@ const insertPost = async (req, res) => {
   return res.status(201).json(newPost);
 };
 
-module.exports = { getAllPosts, getOnePost, insertPost };
+const deletePostById = async (req, res) => {
+  const { id } = req.params;
+  const token = req.header('Authorization');
+
+  const post = await PostServices.findOnePost(id);
+  if (!post) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+  const { email } = jwt.verify(token, secret);
+  const { user: { dataValues } } = await UserServices.findUser(email);
+  if (dataValues.id !== post.dataValues.userId) {
+    return res
+      .status(401).json({ message: 'Unauthorized user' });
+  }
+
+  await PostServices.destroyPost(id);
+  return res.status(204).json();
+};
+
+module.exports = { getAllPosts, getOnePost, insertPost, deletePostById };
