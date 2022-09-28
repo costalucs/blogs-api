@@ -28,6 +28,7 @@ app.get('/categories', validateJWT, categoriesController.getAllCategories);
 app.post('/categories', validateJWT, categoriesController.postCategory);
 
 // rota posts
+app.get('/post/search', validateJWT, PostController.searchPost);
 app.get('/post', validateJWT, PostController.getAllPosts);
 app.get('/post/:id', validateJWT, PostController.getOnePost);
 app.post('/post/', validateJWT, PostController.insertPost);
