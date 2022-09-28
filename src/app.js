@@ -18,6 +18,7 @@ app.post('/login', fieldVerificationLogin, LoginController.Login);
 
 // rota user
 app.get('/user', validateJWT, UserController.getAllUsers);
+app.delete('/user/me', validateJWT, UserController.deleteUser);
 app.get('/user/:id', validateJWT, UserController.getUserById);
 app.post('/user', validateEmail, validateUserFields, UserController.postUser);
 // ...
