@@ -4,18 +4,8 @@ const { BlogPost, User, Category } = require('../models');
 const findAllPosts = async () => {
   const allPosts = await BlogPost.findAll({
     include: [
-      {
-        model: User,
-        as: 'user',
-        attributes: {
-          exclude: ['password'],
-        },
-      },
-      {
-        model: Category,
-        as: 'categories',
-        through: { attributes: [] },
-      },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
   return allPosts;
@@ -26,8 +16,7 @@ const findAllPostsByQuery = async (query) => {
   const allPosts = await BlogPost.findAll({
     where: {
       [Op.or]: [{ title: { [Op.like]: `%${query}%` } }, {
-        content: { [Op.like]: `%${query}%` },
-      },
+        content: { [Op.like]: `%${query}%` } },
       ],
     },
     include: [
@@ -70,7 +59,12 @@ const createPost = async ({ title, content, id }) => {
 };
 
 const destroyPost = async (id) => {
-  const result = BlogPost.destroy({ where: { id } });
-  return result;
+  await BlogPost.destroy({ where: { id } });
 };
-module.exports = { findAllPosts, findOnePost, createPost, destroyPost, findAllPostsByQuery };
+
+const editPost = async (id, title, content) => {
+  await BlogPost.update({ title, content }, { where: { id } });
+};
+
+module.exports = { 
+  findAllPosts, findOnePost, createPost, destroyPost, findAllPostsByQuery, editPost };
