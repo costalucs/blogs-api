@@ -50,26 +50,14 @@ const insertPost = async (req, res) => {
 
 const deletePostById = async (req, res) => {
   const { id } = req.params;
-  const token = req.header('Authorization');
-
-  const post = await PostServices.findOnePost(id);
-  if (!post) {
-    return res.status(404).json({ message: 'Post does not exist' });
-  }
-  const { email } = jwt.verify(token, secret);
-  const { user: { dataValues } } = await UserServices.findUser(email);
-  if (dataValues.id !== post.dataValues.userId) {
-    return res
-      .status(401).json({ message: 'Unauthorized user' });
-  }
 
   await PostServices.destroyPost(id);
+
   return res.status(204).json();
 };
 
 const searchPost = async (req, res) => {
   const { q } = req.query;
-  console.log(q);
   const post = await PostServices.findAllPostsByQuery(q);
   return res.status(200).json(post);
 };
@@ -83,17 +71,10 @@ const editPost = async (req, res) => {
       .status(400).json({ message: 'Some required fields are missing' });
   }
 
-  const post = await PostServices.findOnePost(id);
-  const token = req.header('Authorization');
-  const { email } = jwt.verify(token, secret);
-  const { user: { dataValues } } = await UserServices.findUser(email);
-
-  if (dataValues.id !== post.dataValues.userId) {
-    return res
-      .status(401).json({ message: 'Unauthorized user' });
-  }
   await PostServices.editPost(id, title, content);
+
   const updated = await PostServices.findOnePost(id);
+
   return res.status(200).json(updated);
 };
 

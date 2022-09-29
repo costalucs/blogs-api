@@ -6,6 +6,7 @@ const categoriesController = require('./controller/Categories.controller');
 const fieldVerificationLogin = require('./middlewares/fieldVerificationLogin');
 const { validateUserFields, validateEmail } = require('./middlewares/User.middleware');
 const validateJWT = require('./auth/validateJWT');
+const validateUser = require('./middlewares/validateUser');
 
 // ...
 
@@ -31,9 +32,9 @@ app.post('/categories', validateJWT, categoriesController.postCategory);
 app.get('/post/search', validateJWT, PostController.searchPost);
 app.get('/post', validateJWT, PostController.getAllPosts);
 app.get('/post/:id', validateJWT, PostController.getOnePost);
-app.put('/post/:id', validateJWT, PostController.editPost);
+app.put('/post/:id', validateJWT, validateUser, PostController.editPost);
 app.post('/post/', validateJWT, PostController.insertPost);
-app.delete('/post/:id', validateJWT, PostController.deletePostById);
+app.delete('/post/:id', validateJWT, validateUser, PostController.deletePostById);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
